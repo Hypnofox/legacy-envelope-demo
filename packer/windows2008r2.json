@@ -1,0 +1,38 @@
+{
+  "builders": [
+    {
+      "type": "qemu",
+      "iso_url": "<path-or-url-to-Windows-Server-2008-R2-eval.iso>",
+      "iso_checksum": "<checksum>",
+      "output_directory": "output-windows2008r2",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "disk_size": 40960,
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "headless": true,
+      "communicator": "winrm",
+      "winrm_username": "Administrator",
+      "winrm_password": "Password123!",
+      "winrm_insecure": true,
+      "winrm_timeout": "6h",
+      "floppy_files": [
+        "scripts/setup.ps1"
+      ],
+      "boot_wait": "2m",
+      "boot_command": [
+        "<tab> textmode<enter><wait>",
+        "inst.text inst.ks=cdrom:/ks.cfg<enter>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "powershell",
+      "scripts": [
+        "scripts/install-dotnet.ps1",
+        "scripts/install-iis.ps1",
+        "scripts/deploy-musicstore.ps1"
+      ]
+    }
+  ]
+}
