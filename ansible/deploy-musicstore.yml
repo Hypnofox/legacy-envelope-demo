@@ -1,0 +1,11 @@
+---
+- hosts: musicstore
+  become: true
+  tasks:
+    - name: Ensure IIS and .NET are installed
+      win_feature:
+        name:
+          - Web-Server
+          - NET-Framework-45-Core
+        state: present
+    # TODO: Deploy Music Store code
