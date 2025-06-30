@@ -1,0 +1,18 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+
+# Node
+node_modules/
+dist/
+
+# Terraform
+*.tfstate*
+.terraform/
+
+# Packer
+output-*/
+
+# IDEs
+.vscode/
